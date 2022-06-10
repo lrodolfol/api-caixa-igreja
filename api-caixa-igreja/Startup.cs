@@ -1,4 +1,5 @@
 using api_caixa_igreja.Models;
+using api_caixa_igreja.Models.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,12 +31,14 @@ namespace api_caixa_igreja
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+           services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api_caixa_igreja", Version = "v1" });
             });
             services.AddDbContext<AppDbContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("CaixaIgrejaSqlServer")));
+                (options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("CaixaIgrejaSqlServer")));
+            services.AddAutoMapper(typeof(MapperMembros));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,6 +7,7 @@ namespace api_caixa_igreja.Models
     {
         public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
         {
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
