@@ -1,6 +1,7 @@
 ﻿using api_caixa_igreja.Models;
 using api_caixa_igreja.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,9 +86,20 @@ namespace api_caixa_igreja.Controllers
                 return NotFound();
             }
 
-            _context.Cargos.Remove(cargo);
-            _context.SaveChanges();
-
+            try
+            {
+                _context.Cargos.Remove(cargo);
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new MessageException
+                {
+                    descricao = ex.Message,
+                    mensagem = "Verifique os dados e tente novamente. O cargo já esta em uso por membros?"
+                });
+            }
+            
             return NoContent();
         }
     }

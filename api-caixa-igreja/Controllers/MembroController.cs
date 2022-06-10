@@ -59,10 +59,21 @@ namespace api_caixa_igreja.Controllers
         [HttpPost]
         public IActionResult Membro(Membros membro)
         {
-            _context.Add(membro);
-            _context.SaveChanges();
+            try
+            {
+                _context.Add(membro);
+                _context.SaveChanges();
 
-            return NoContent();
+                return NoContent();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new MessageException
+                {
+                    descricao = ex.Message,
+                    mensagem = "Verifique os dados e tente novamente"
+                });
+            }
         }
 
         [HttpPut("{id}")]

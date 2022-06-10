@@ -68,7 +68,7 @@ namespace api_caixa_igreja.Migrations
                     b.HasOne("api_caixa_igreja.Models.Entities.Cargos", "Cargo")
                         .WithMany("Membros")
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cargo");
