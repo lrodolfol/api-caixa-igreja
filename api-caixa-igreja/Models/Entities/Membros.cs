@@ -21,6 +21,7 @@ namespace api_caixa_igreja.Models.Entities
         public string Nome { get; set; }
         [Required(ErrorMessage = "Nome: Data de nascimento é obrigatório")]
         public DateTime DataNascimento { get; set; }
+        public int CargoId { get; set; }
     }
 
     public class MapperMembros : Profile
