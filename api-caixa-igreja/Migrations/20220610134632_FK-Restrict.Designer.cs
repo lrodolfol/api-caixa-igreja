@@ -10,8 +10,8 @@ using api_caixa_igreja.Models;
 namespace api_caixa_igreja.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220608024137_remove-campo-idade")]
-    partial class removecampoidade
+    [Migration("20220610134632_FK-Restrict")]
+    partial class FKRestrict
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,7 +70,7 @@ namespace api_caixa_igreja.Migrations
                     b.HasOne("api_caixa_igreja.Models.Entities.Cargos", "Cargo")
                         .WithMany("Membros")
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cargo");
