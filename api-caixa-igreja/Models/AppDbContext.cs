@@ -15,7 +15,8 @@ namespace api_caixa_igreja.Models
             builder.Entity<Membros>()
             .HasOne(membros => membros.Cargo)
             .WithMany(cargo => cargo.Membros)
-            .HasForeignKey(membro => membro.CargoId);
+            .HasForeignKey(membro => membro.CargoId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
 
 
