@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace api_caixa_igreja.Models.Entities
 {
@@ -12,6 +13,7 @@ namespace api_caixa_igreja.Models.Entities
         public string Nome { get; set; }
         [Required(ErrorMessage = "Descrição: campo é obrigátorio")]
         public string Descricao { get; set; }
+        [JsonIgnore]
         public virtual List<Membros> Membros { get; set; }
     }
 }
