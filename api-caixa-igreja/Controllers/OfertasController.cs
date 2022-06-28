@@ -156,5 +156,20 @@ namespace api_caixa_igreja.Controllers
                 });
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOfertas(int id)
+        {
+            Ofertas oferta = _context.Ofertas.FirstOrDefault(of => of.Id == id);
+            if(oferta == null)
+            {
+                return NotFound();
+            }
+
+            _context.Ofertas.Remove(oferta);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

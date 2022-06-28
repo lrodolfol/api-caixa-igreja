@@ -65,6 +65,33 @@ namespace api_caixa_igreja.Migrations
                         });
                 });
 
+            modelBuilder.Entity("api_caixa_igreja.Models.Entities.Dizimos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Dia")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdMembroDizimista")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Periodo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdMembroDizimista");
+
+                    b.ToTable("Dizimos");
+                });
+
             modelBuilder.Entity("api_caixa_igreja.Models.Entities.Membros", b =>
                 {
                     b.Property<int>("Id")
@@ -276,6 +303,17 @@ namespace api_caixa_igreja.Migrations
                         });
                 });
 
+            modelBuilder.Entity("api_caixa_igreja.Models.Entities.Dizimos", b =>
+                {
+                    b.HasOne("api_caixa_igreja.Models.Entities.Membros", "MembroDizimista")
+                        .WithMany("DizimosDevolvidos")
+                        .HasForeignKey("IdMembroDizimista")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("MembroDizimista");
+                });
+
             modelBuilder.Entity("api_caixa_igreja.Models.Entities.Membros", b =>
                 {
                     b.HasOne("api_caixa_igreja.Models.Entities.Cargos", "Cargo")
@@ -327,6 +365,8 @@ namespace api_caixa_igreja.Migrations
 
             modelBuilder.Entity("api_caixa_igreja.Models.Entities.Membros", b =>
                 {
+                    b.Navigation("DizimosDevolvidos");
+
                     b.Navigation("OfertasMinistradas");
 
                     b.Navigation("OfertasRealizadas");

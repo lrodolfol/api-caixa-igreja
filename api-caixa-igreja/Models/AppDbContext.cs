@@ -47,6 +47,13 @@ namespace api_caixa_igreja.Models
                 new TipoOferta { Id = 4, Nome = "Cheques", Descricao = "Cheques fora do culto" },
                 new TipoOferta { Id = 5, Nome = "Cartão", Descricao = "Feito com cartão crédito/debito" }
                 );
+
+            builder.Entity<Ofertas>()
+                .HasData(
+                new Ofertas { IdMembroMinistrante = 1, IdTipoCulto = 1, IdTipoOferta = 1, 
+                    QtdAdultos = 26, QtdCriancas = 5, Dia = DateTime.Parse("2022-06-01"), totalOferta = 550.25 }
+                )
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -81,6 +88,12 @@ namespace api_caixa_igreja.Models
                 .HasForeignKey(oferta => oferta.IdTipoOferta)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<Dizimos>()
+                .HasOne(dizimo => dizimo.MembroDizimista)
+                .WithMany(membro => membro.DizimosDevolvidos)
+                .HasForeignKey(dizimo => dizimo.IdMembroDizimista)
+                .OnDelete(DeleteBehavior.NoAction);
+
             InicializarModels(builder);
         }
 
@@ -89,6 +102,7 @@ namespace api_caixa_igreja.Models
         public DbSet<TipoOferta> TipoOferta { get; set; }
         public DbSet<TipoCulto> TipoCulto { get; set; }
         public DbSet<Ofertas> Ofertas { get; set; }
+        public DbSet<Dizimos> Dizimos { get; set; }
 
     }
 }

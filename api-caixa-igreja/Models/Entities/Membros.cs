@@ -16,9 +16,11 @@ namespace api_caixa_igreja.Models.Entities
         public DateTime DataNascimento { get; set; }
         public int CargoId { get; set; }
         public virtual Cargos Cargo { get; set; }
-       [JsonIgnore]
+        [JsonIgnore]
         public virtual List<Ofertas> OfertasMinistradas { get; set; }
         [JsonIgnore]
         public virtual List<Ofertas> OfertasRealizadas { get; set; }
+        [JsonIgnore]
+        public virtual List<Dizimos> DizimosDevolvidos { get; set; }
     }
 }
