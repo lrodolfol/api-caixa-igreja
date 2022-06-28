@@ -1,5 +1,7 @@
 ﻿using api_caixa_igreja.Models;
+using api_caixa_igreja.Models.Data.Dtos.Cargos;
 using api_caixa_igreja.Models.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
@@ -9,14 +11,16 @@ using System.Linq;
 namespace api_caixa_igreja.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CargoController : ControllerBase
     {
         private AppDbContext _context;
+        private IMapper _mapper;
 
-        public CargoController(AppDbContext context)
+        public CargoController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         [HttpGet]
         public IEnumerable Cargo([FromQuery] string nome)
@@ -42,19 +46,23 @@ namespace api_caixa_igreja.Controllers
         public IActionResult Cargo(int id)
         {
             Cargos cargo = new Cargos();
-            cargo = _context.Cargos.Find(id);
+            cargo = _context.Cargos.FirstOrDefault(c => c.Id == id);
 
             if(cargo == null)
             {
                 return NotFound();
             }
 
-            return Ok(cargo);
+            ReadCargosDto cargoDto = _mapper.Map<ReadCargosDto>(cargo); 
+
+            return Ok(cargoDto);
         }
 
         [HttpPost]
-        public IActionResult Cargo([FromBody] Cargos cargo)
+        public IActionResult Cargo([FromBody] CreateCargosDto cargoDto)
         {
+            var cargo = _mapper.Map<Cargos>(cargoDto);
+
             _context.Cargos.Add(cargo);
             _context.SaveChanges();
 
@@ -62,16 +70,25 @@ namespace api_caixa_igreja.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Cargo(int id, [FromBody] Cargos newCargo)
+        public IActionResult Cargo(int id, [FromBody] CreateCargosDto cargoDto)
         {
-            Cargos cargo = new Cargos();
-            cargo = _context.Cargos.Find(id);
+            Cargos cargo = _context.Cargos.FirstOrDefault(c => c.Id == id);
 
-            cargo.Nome = newCargo.Nome;
-            cargo.Descricao = newCargo.Descricao;
+            if (cargo == null)
+            {
+                return NotFound();
+            }
 
-            _context.SaveChanges();
-            
+            try
+            {
+                cargo = _mapper.Map(cargoDto, cargo);
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
             return NoContent();
         }
 
@@ -95,12 +112,13 @@ namespace api_caixa_igreja.Controllers
             {
                 return BadRequest(new MessageException
                 {
-                    descricao = ex.Message,
-                    mensagem = "Verifique os dados e tente novamente. O cargo já esta em uso por membros?"
+                    Descricao = ex.Message,
+                    Mensagem = "Verifique os dados e tente novamente. O cargo já esta em uso por membros?"
                 });
             }
             
             return NoContent();
         }
+
     }
 }

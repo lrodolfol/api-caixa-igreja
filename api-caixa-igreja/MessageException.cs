@@ -2,7 +2,10 @@
 {
     public class MessageException
     {
-        public string mensagem { get; set; }
-        public string descricao { get; set; }
+        public string Mensagem
+        {
+            get; set;
+        } = "Verifique os dados e tente novamente";
+        public string Descricao { get; set; }
     }
 }
