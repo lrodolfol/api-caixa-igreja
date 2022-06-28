@@ -37,7 +37,6 @@ namespace api_caixa_igreja
             });
             services.AddDbContext<AppDbContext>
                 (options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("CaixaIgrejaSqlServer")));
-            services.AddAutoMapper(typeof(MapperMembros));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
