@@ -50,9 +50,17 @@ namespace api_caixa_igreja.Models
 
             builder.Entity<Ofertas>()
                 .HasData(
-                new Ofertas { IdMembroMinistrante = 1, IdTipoCulto = 1, IdTipoOferta = 1, 
-                    QtdAdultos = 26, QtdCriancas = 5, Dia = DateTime.Parse("2022-06-01"), totalOferta = 550.25 }
-                )
+                new Ofertas
+                {
+                    IdMembroMinistrante = 1,
+                    IdTipoCulto = 1,
+                    IdTipoOferta = 1,
+                    QtdAdultos = 26,
+                    QtdCriancas = 5,
+                    Dia = DateTime.Parse("2022-06-01"),
+                    totalOferta = 550.25
+                }
+                );
 
         }
         protected override void OnModelCreating(ModelBuilder builder)
