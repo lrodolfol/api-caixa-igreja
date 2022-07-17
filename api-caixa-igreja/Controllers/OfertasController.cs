@@ -70,7 +70,7 @@ namespace api_caixa_igreja.Controllers
             //INNER JOIN DE OFERTAS E TIPO DE OFERTA
             if (IdtipoOferta > 0)
             {
-                List<TipoOferta> tipoOfertas = _context.TipoOferta.ToList();
+                List<TipoOfertas> tipoOfertas = _context.TipoOferta.ToList();
 
                 var query = (
                 from oferta in ofertas

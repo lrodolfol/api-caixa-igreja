@@ -52,7 +52,7 @@ namespace api_caixa_igreja.Controllers
         {
             try
             {
-                var tipoOferta = _mapper.Map<TipoOferta>(tipoOfertaDto);
+                var tipoOferta = _mapper.Map<TipoOfertas>(tipoOfertaDto);
 
                 _context.TipoOferta.Add(tipoOferta);
                 _context.SaveChanges();
@@ -71,7 +71,7 @@ namespace api_caixa_igreja.Controllers
         [HttpGet]
         public IActionResult TipoOferta([FromQuery] string nome)
         {
-            IList<TipoOferta> tipoOferta = _context.TipoOferta.ToList();
+            IList<TipoOfertas> tipoOferta = _context.TipoOferta.ToList();
 
             if (! string.IsNullOrEmpty(nome)) 
             {

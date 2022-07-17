@@ -99,6 +99,9 @@ namespace api_caixa_igreja.Migrations
                     b.Property<int>("CargoId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DataBatismo")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime(6)");
 
@@ -117,6 +120,7 @@ namespace api_caixa_igreja.Migrations
                         {
                             Id = 1,
                             CargoId = 1,
+                            DataBatismo = new DateTime(2010, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DataNascimento = new DateTime(1995, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Nome = "Rodolfo Jesus Silva"
                         },
@@ -124,6 +128,7 @@ namespace api_caixa_igreja.Migrations
                         {
                             Id = 2,
                             CargoId = 2,
+                            DataBatismo = new DateTime(2008, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DataNascimento = new DateTime(1993, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Nome = "Kelly Cristina Martins"
                         },
@@ -131,6 +136,7 @@ namespace api_caixa_igreja.Migrations
                         {
                             Id = 3,
                             CargoId = 3,
+                            DataBatismo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DataNascimento = new DateTime(2006, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Nome = "Gustavo de Jesus Silva"
                         },
@@ -138,8 +144,17 @@ namespace api_caixa_igreja.Migrations
                         {
                             Id = 4,
                             CargoId = 4,
+                            DataBatismo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DataNascimento = new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Nome = "Casy Martins da Silva"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CargoId = 4,
+                            DataBatismo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1974, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nome = "André Martinele Alves"
                         });
                 });
 
@@ -203,6 +218,57 @@ namespace api_caixa_igreja.Migrations
                         });
                 });
 
+            modelBuilder.Entity("api_caixa_igreja.Models.Entities.Primicias", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Dia")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IdMembro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTipoOferta")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Periodo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdMembro");
+
+                    b.HasIndex("IdTipoOferta");
+
+                    b.ToTable("Primicias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Dia = new DateTime(2022, 7, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IdMembro = 1,
+                            IdTipoOferta = 1,
+                            Periodo = "07/2021",
+                            Valor = 400.64999999999998
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Dia = new DateTime(2022, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IdMembro = 2,
+                            IdTipoOferta = 2,
+                            Periodo = "06/2021",
+                            Valor = 150.80000000000001
+                        });
+                });
+
             modelBuilder.Entity("api_caixa_igreja.Models.Entities.TipoCulto", b =>
                 {
                     b.Property<int>("Id")
@@ -260,7 +326,7 @@ namespace api_caixa_igreja.Migrations
                         });
                 });
 
-            modelBuilder.Entity("api_caixa_igreja.Models.Entities.TipoOferta", b =>
+            modelBuilder.Entity("api_caixa_igreja.Models.Entities.TipoOfertas", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -347,7 +413,7 @@ namespace api_caixa_igreja.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("api_caixa_igreja.Models.Entities.TipoOferta", "TipoOferta")
+                    b.HasOne("api_caixa_igreja.Models.Entities.TipoOfertas", "TipoOferta")
                         .WithMany("OfertasAlcadas")
                         .HasForeignKey("IdTipoOferta")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -366,6 +432,25 @@ namespace api_caixa_igreja.Migrations
                     b.Navigation("TipoOferta");
                 });
 
+            modelBuilder.Entity("api_caixa_igreja.Models.Entities.Primicias", b =>
+                {
+                    b.HasOne("api_caixa_igreja.Models.Entities.Membros", "Membro")
+                        .WithMany("PrimiciasOfertadas")
+                        .HasForeignKey("IdMembro")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("api_caixa_igreja.Models.Entities.TipoOfertas", "TipoOferta")
+                        .WithMany("PrimiciasOfertadas")
+                        .HasForeignKey("IdTipoOferta")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Membro");
+
+                    b.Navigation("TipoOferta");
+                });
+
             modelBuilder.Entity("api_caixa_igreja.Models.Entities.Cargos", b =>
                 {
                     b.Navigation("Membros");
@@ -378,6 +463,8 @@ namespace api_caixa_igreja.Migrations
                     b.Navigation("OfertasMinistradas");
 
                     b.Navigation("OfertasRealizadas");
+
+                    b.Navigation("PrimiciasOfertadas");
                 });
 
             modelBuilder.Entity("api_caixa_igreja.Models.Entities.TipoCulto", b =>
@@ -385,9 +472,11 @@ namespace api_caixa_igreja.Migrations
                     b.Navigation("OfertasAlcadas");
                 });
 
-            modelBuilder.Entity("api_caixa_igreja.Models.Entities.TipoOferta", b =>
+            modelBuilder.Entity("api_caixa_igreja.Models.Entities.TipoOfertas", b =>
                 {
                     b.Navigation("OfertasAlcadas");
+
+                    b.Navigation("PrimiciasOfertadas");
                 });
 #pragma warning restore 612, 618
         }

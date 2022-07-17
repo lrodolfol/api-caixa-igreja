@@ -26,7 +26,7 @@ namespace api_caixa_igreja.Models.Entities
         public int IdMembroOfertante { get; set; } = 0;
         
         public virtual TipoCulto TipoCulto { get; set; }
-        public virtual TipoOferta TipoOferta { get; set; }
+        public virtual TipoOfertas TipoOferta { get; set; }
         public virtual Membros MembroMinistrante { get; set; }
         public virtual Membros MembroOfertante { get; set; }
     }

@@ -8,8 +8,8 @@ namespace api_caixa_igreja.Profiles
     {
         public TipoOfertaProfile()
         {
-            CreateMap<CreateTipoOfertaDto, TipoOferta>();
-            CreateMap<TipoOferta, ReadTipoOfertaDto>();
+            CreateMap<CreateTipoOfertaDto, TipoOfertas>();
+            CreateMap<TipoOfertas, ReadTipoOfertaDto>();
         }
     }
 }

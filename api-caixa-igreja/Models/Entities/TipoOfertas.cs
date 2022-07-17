@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace api_caixa_igreja.Models.Entities
 {
-    public class TipoOferta
+    public class TipoOfertas
     {
         [Key]
         [Required(ErrorMessage = "Id obrigátorio")]
@@ -13,7 +13,11 @@ namespace api_caixa_igreja.Models.Entities
         public string Nome { get; set; }
         [Required(ErrorMessage = "Descrição: campo é obrigátorio")]
         public string Descricao { get; set; }
+
+
         [JsonIgnore]
         public virtual List<Ofertas> OfertasAlcadas { get; set; }
+        [JsonIgnore]
+        public virtual List<Primicias> PrimiciasOfertadas { get; set; }
     }
 }

@@ -10,5 +10,6 @@ namespace api_caixa_igreja.Models.Data.Dtos.Membros
         [Required(ErrorMessage = "Nome: Data de nascimento é obrigatório")]
         public DateTime DataNascimento { get; set; }
         public int CargoId { get; set; }
+        public DateTime DataBatismo { get; set; }
     }
 }

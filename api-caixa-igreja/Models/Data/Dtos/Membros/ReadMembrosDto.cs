@@ -10,6 +10,7 @@ namespace api_caixa_igreja.Models.Data.Dtos.Membros
         public DateTime DataNascimento { get; set; }
         //public int CargoId { get; set; }
         public virtual Entities.Cargos Cargo { get; set; }
+        public DateTime DataBatismo { get; set; }
         public DateTime DateRequest
         {
             get
