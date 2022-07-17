@@ -52,6 +52,7 @@ namespace api_caixa_igreja.Models
                 .HasData(
                 new Ofertas
                 {
+                    Id= 1,  
                     IdMembroMinistrante = 1,
                     IdTipoCulto = 1,
                     IdTipoOferta = 1,
