@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using api_caixa_igreja.Models;
 using api_caixa_igreja.Models.Entities;
 using AutoMapper;
@@ -103,11 +100,6 @@ namespace api_caixa_igreja.Controllers
             _context.SaveChanges();
 
             return NoContent();
-        }
-
-        private bool PrimiciasExists(int id)
-        {
-          return _context.Primicias.Any(e => e.Id == id);
         }
     }
 }

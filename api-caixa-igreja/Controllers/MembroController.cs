@@ -3,6 +3,7 @@ using api_caixa_igreja.Models.Data.Dtos.Membros;
 using api_caixa_igreja.Models.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace api_caixa_igreja.Controllers
         [HttpGet]
         public IActionResult Membro([FromQuery] string nome)
         {
-           List<Membros> membros = _context.Membros.ToList();   
+           List<Membros> membros = _context.Membros.AsNoTracking().ToList();   
 
             if (membros == null)
             {

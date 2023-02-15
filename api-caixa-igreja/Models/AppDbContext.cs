@@ -112,7 +112,7 @@ namespace api_caixa_igreja.Models
         public DbSet<TipoCulto> TipoCulto { get; set; }
         public DbSet<Ofertas> Ofertas { get; set; }
         public DbSet<Dizimos> Dizimos { get; set; }
-        public DbSet<api_caixa_igreja.Models.Entities.Primicias> Primicias { get; set; }
+        public DbSet<Primicias> Primicias { get; set; }
 
     }
 }
